@@ -1,4 +1,37 @@
 package edu.eci.dosw.DOSW_Library.core.service;
 
+import edu.eci.dosw.DOSW_Library.core.model.Book;
+import edu.eci.dosw.DOSW_Library.core.model.Loan;
+import edu.eci.dosw.DOSW_Library.core.model.User;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class BookService {
+
+    private final List<User> users = new ArrayList<>();
+    private final List<Loan> loans = new ArrayList<>();
+    private final Map<Book, Integer> books = new HashMap<>();
+
+    private void addBook(Book book, int copies) {
+        books.put(book, copies);
+    }
+
+    private List<Book> getAllBooks() {
+        return new ArrayList<>(books.keySet());
+    }
+
+    private Book getBookId(String id){
+        return books.keySet().stream()
+                .filter(book -> book.getId().equals(id))
+                .findFirst().orElse(null);
+    }
+
+    public void updateBookAvailable(String id, boolean available){
+        Book book = getBookId(id);
+        book.setAvailable(available);
+    }
+
 }

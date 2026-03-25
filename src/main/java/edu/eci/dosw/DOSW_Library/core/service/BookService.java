@@ -13,8 +13,6 @@ import java.util.Map;
 @Service
 public class BookService {
 
-    private final List<User> users = new ArrayList<>();
-    private final List<Loan> loans = new ArrayList<>();
     private final Map<Book, Integer> books = new HashMap<>();
 
     private void addBook(Book book, int copies) {
@@ -25,15 +23,31 @@ public class BookService {
         return new ArrayList<>(books.keySet());
     }
 
-    private Book getBookId(String id){
+    public Book getBookId(String id){
         return books.keySet().stream()
                 .filter(book -> book.getId().equals(id))
-                .findFirst().orElse(null);
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Book not found: " + id));
     }
 
     public void updateBookAvailable(String id, boolean available){
         Book book = getBookId(id);
         book.setAvailable(available);
+    }
+
+    public int getCopies(String id) {
+        Book book = getBookId(id);
+        return books.get(book);
+    }
+
+    public void updateCopies(String id, int copies) {
+        Book book = getBookId(id);
+        books.put(book, copies);
+    }
+
+    public void deleteBook(String id) {
+        Book book = getBookId(id);
+        books.remove(book);
     }
 
 }

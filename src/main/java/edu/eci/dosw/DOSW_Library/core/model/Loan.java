@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -13,7 +14,7 @@ public class Loan {
 
     private Book book;
     private User user;
-    private Date loanDate;
+    private LocalDate loanDate;
     private Status status; //"ACTIVE", "RETURNED"
     private Date returnDate;
 }

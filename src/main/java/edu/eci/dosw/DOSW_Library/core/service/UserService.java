@@ -1,6 +1,7 @@
 package edu.eci.dosw.DOSW_Library.core.service;
 
 
+import edu.eci.dosw.DOSW_Library.core.exception.UserNotFoundException;
 import edu.eci.dosw.DOSW_Library.core.model.Book;
 import edu.eci.dosw.DOSW_Library.core.model.Loan;
 import edu.eci.dosw.DOSW_Library.core.model.User;
@@ -15,8 +16,6 @@ import java.util.Map;
 public class UserService {
 
     private final List<User> users = new ArrayList<>();
-    private final List<Loan> loans = new ArrayList<>();
-    private final Map<Book, Integer> books = new HashMap<>();
 
     public void addUser(User user) {
         users.add(user);
@@ -26,10 +25,20 @@ public class UserService {
         return users;
     }
 
-    public User getUserById(String id) {
+    public User getUserById(String id) throws UserNotFoundException {
         return users.stream()
                 .filter(u -> u.getId().equals(id))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(()->new UserNotFoundException("User not found" + id));
+    }
+
+    public void updateUser(String id, User updateUser) throws UserNotFoundException {
+        User user =  getUserById(id);
+        user.setUsername(updateUser.getUsername());
+    }
+
+    public void deleteUser(String id) throws UserNotFoundException {
+        User user =  getUserById(id);
+        users.remove(user);
     }
 }

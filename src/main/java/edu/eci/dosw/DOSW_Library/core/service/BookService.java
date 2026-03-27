@@ -15,11 +15,11 @@ public class BookService {
 
     private final Map<Book, Integer> books = new HashMap<>();
 
-    private void addBook(Book book, int copies) {
+    public void addBook(Book book, int copies) {
         books.put(book, copies);
     }
 
-    private List<Book> getAllBooks() {
+    public List<Book> getAllBooks() {
         return new ArrayList<>(books.keySet());
     }
 

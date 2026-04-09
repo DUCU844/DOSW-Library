@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookValidator {
 
-    public void validate(Book book) {
+    public static void validate(Book book) {
         ValidationUtil.validateNotNull(book, "El libro no puede ser nulo");
         ValidationUtil.validateNotBlank(book.getId(), "El ID del libro no puede estar vacío");
         ValidationUtil.validateNotBlank(book.getTitle(), "El título no puede estar vacío");

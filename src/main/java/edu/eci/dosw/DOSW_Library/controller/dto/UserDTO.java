@@ -17,7 +17,7 @@ public class UserDTO {
 
     @NotBlank(message = "El username no puede estar vacío")
     @Size(min = 3, max = 50, message = "El username debe tener entre 3 y 50 caracteres")
-    private String username;
+    private String userName;
 
     @NotBlank(message = "La contraseña no puede estar vacía")
     @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")

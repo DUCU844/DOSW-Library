@@ -22,7 +22,7 @@ public class LoanValidator {
 
     public void validateActiveLoan(Loan loan){
         if (loan.getStatus() == Status.RETURNED){
-            throw new LoanAlreadyReturnedException("El prestamo del libro ya fue devuelto anteriormente");
+            throw new LoanAlreadyReturnedException("El préstamo del libro ya fue devuelto anteriormente");
         }
     }
 }

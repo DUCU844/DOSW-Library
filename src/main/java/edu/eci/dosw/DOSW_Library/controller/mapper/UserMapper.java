@@ -14,7 +14,7 @@ public class UserMapper {
         return new User(
                 dto.getId(),
                 dto.getName(),
-                dto.getUsername(),
+                dto.getUserName(),
                 dto.getPassword(),
                 role
         );

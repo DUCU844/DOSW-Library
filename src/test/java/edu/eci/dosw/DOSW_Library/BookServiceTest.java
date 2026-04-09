@@ -6,8 +6,6 @@ import edu.eci.dosw.DOSW_Library.core.validator.BookValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class BookServiceTest {
@@ -20,20 +18,65 @@ class BookServiceTest {
     }
 
     @Test
-    void addBook_shouldAddBookSuccessfully() {
-        Book book = new Book("B1", "Clean Code", "Robert Martin", 10, 3);
-        bookService.addBook(book, 3);
-        assertEquals(book, bookService.getBookId("B1"));
+    void addBook_shouldAddSuccessfully() {
+        Book book = new Book("B1", "Clean Code", "Martin", 10, 5);
+
+        bookService.addBook(book, 5);
+
+        assertEquals(1, bookService.getAllBooks().size());
     }
 
     @Test
-    void getAllBooks_shouldReturnAllBooks() {
-        bookService.addBook(new Book("B1", "Clean Code", "Robert Martin", 10, 3), 3);
-        bookService.addBook(new Book("B2", "El Quijote", "Cervantes", 20, 10), 2);
-        List<Book> books = bookService.getAllBooks();
-        assertEquals(2, books.size());
+    void getBookId_shouldReturnBook() {
+        Book book = new Book("B1", "Clean Code", "Martin", 10, 5);
+        bookService.addBook(book, 5);
+
+        Book result = bookService.getBookId("B1");
+
+        assertEquals("B1", result.getId());
     }
 
+    @Test
+    void getBookId_shouldThrowException_whenNotFound() {
+        assertThrows(RuntimeException.class, () -> {
+            bookService.getBookId("NO_EXISTE");
+        });
+    }
 
+    @Test
+    void updateCopies_shouldUpdateCorrectly() {
+        Book book = new Book("B1", "Clean Code", "Martin", 10, 5);
+        bookService.addBook(book, 5);
 
+        bookService.updateCopies("B1", 3);
+
+        assertEquals(3, bookService.getCopies("B1"));
+    }
+
+    @Test
+    void updateBookAvailable_shouldFail_whenIdIsBlank() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            bookService.updateBookAvailable("", 2);
+        });
+    }
+
+    @Test
+    void updateBookAvailable_shouldUpdateCorrectly() {
+        Book book = new Book("B1", "Clean Code", "Martin", 10, 5);
+        bookService.addBook(book, 5);
+
+        bookService.updateBookAvailable("B1", 2);
+
+        assertEquals(2, bookService.getBookId("B1").getAvailableCopies());
+    }
+
+    @Test
+    void deleteBook_shouldRemoveBook() {
+        Book book = new Book("B1", "Clean Code", "Martin", 10, 5);
+        bookService.addBook(book, 5);
+
+        bookService.deleteBook("B1");
+
+        assertTrue(bookService.getAllBooks().isEmpty());
+    }
 }

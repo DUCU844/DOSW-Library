@@ -22,7 +22,7 @@ public class BookDTO {
     private String author;
 
     @Min(value = 1, message = "Debe haber al menos 1 copia")
-    private int copies;
+    private int totalCopies;
 
     @Min(value = 0, message = "Las copias disponibles no pueden ser negativas")
     private int availableCopies;

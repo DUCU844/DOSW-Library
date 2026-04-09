@@ -21,8 +21,7 @@ public class LoanController {
     }
 
     @PostMapping
-    public ResponseEntity<Loan> createLoan(@RequestParam String bookId,
-                                           @RequestParam String userId) throws BookNotAvailableException, UserNotFoundException {
+    public ResponseEntity<Loan> createLoan(@RequestParam String bookId,@RequestParam String userId) {
         return ResponseEntity.status(201).body(loanService.createLoan(bookId,userId));
     }
 
@@ -38,7 +37,7 @@ public class LoanController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Loan>> getLoansByUser(@PathVariable String userId) throws UserNotFoundException {
+    public ResponseEntity<List<Loan>> getLoansByUser(@PathVariable String userId) {
         return ResponseEntity.ok(loanService.getLoansByUser(userId));
     }
 

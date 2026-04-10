@@ -1,14 +1,19 @@
 package edu.eci.dosw.DOSW_Library.core.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import java.util.Date;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Loan {
 
     private Book book;
     private User user;
-    private Date loanDate;
+    private LocalDate loanDate;
     private Status status; //"ACTIVE", "RETURNED"
-    private Date returnDate;
+    private LocalDate returnDate;
 }

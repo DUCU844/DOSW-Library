@@ -59,7 +59,11 @@ public class BookService {
 
     public void deleteBook(String id) {
         ValidationUtil.validateNotBlank(id, "El identificador no puede ser nulo");
-        Book book = getBookId(id);
+        Book book = books.keySet()
+                .stream()
+                .filter(b -> b.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
         books.remove(book);
     }
 
